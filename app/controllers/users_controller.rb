@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :move_to_session, except: [:index, :show]
+
   def edit
   end
 
@@ -10,8 +12,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+    @prototypes = Prototype.all
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :position, :occupation, :profile)
+  end
+  def move_to_session
+    unless user_signed_in?
+      redirect_to new_user_session_path
+    end
   end
 end
