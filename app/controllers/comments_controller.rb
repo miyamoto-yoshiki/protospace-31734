@@ -8,7 +8,8 @@ class CommentsController < ApplicationController
     else 
       @prototype = @comment.prototype #アソシエーションで情報を取ってくるときはこんな書き方
       @comments = @prototype.comments #アソシエーションで情報を取ってくるときはこんな書き方
-      render "prototypes/show" #もしリダイレクトでshowに行くなら、一から読み込むから上二つの定義はいらない。
+      redirect_to prototype_path(@prototype)
+      #render "prototypes/show" #もしリダイレクトでshowに行くなら、一から読み込むから上二つの定義はいらない。
                                #今回はrenderなので、このcreateのなかで完結させるために、改めて定義している。
     end
   end
